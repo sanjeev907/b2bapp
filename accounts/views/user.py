@@ -1,10 +1,13 @@
 from accounts.models.users import User
 from rest_framework.response import Response
 from rest_framework import generics
-from rest_framework.generics import GenericAPIView,ListAPIView,CreateAPIView
+from rest_framework.generics import ListAPIView,CreateAPIView
 from accounts.serializers.user import UserSerializer
 from utils.views import gen_otp,send_sms
 from django.contrib.auth.hashers import make_password, check_password
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.views import TokenRefreshView
 
 
 class GetUserAPIView(ListAPIView):
@@ -27,10 +30,12 @@ class CreateUserAPIView(CreateAPIView):
         date = request.data.get('date_joined')
         otp = request.data.get('otp')
         login_type = request.data.get('login_type')
+        password = request.data.get('password')
 
-        if email and mobile_number and date and otp and login_type:
+        if email and mobile_number and date and otp and login_type and password:
             try:
-                user = User.objects.create(email=email, mobile_number=mobile_number, date_joined=date, otp=otp, login_type=login_type)
+                password_hash = make_password(password)
+                user = User.objects.create(email=email, mobile_number=mobile_number, date_joined=date, otp=otp, login_type=login_type, password=password_hash)
                 instance = UserSerializer(user)
                 return Response(instance.data)
             except User.DoesNotExist:
@@ -70,12 +75,14 @@ class LoginVerifyAPIView(CreateAPIView):
         try:
             user = User.objects.get(mobile_number=mobile_number,otp=otp)
             if user:
-                return Response({'success'})
+                refresh = RefreshToken.for_user(user)
+                token = {'refresh': str(refresh),'access': str(refresh.access_token),}
+                return Response(token)
             else:
                 return Response({'message':'Wrong OTP'})
         except User.DoesNotExist:
-            return Response({'message':'User does not exist'})  
-
+            return Response({'message':'User does not exist'})
+    
     def email_login(self,request,*args,**kwargs):
         email = request.data.get('email')
         password = request.data.get('password')
@@ -83,7 +90,9 @@ class LoginVerifyAPIView(CreateAPIView):
         try:
             user = User.objects.get(email=email)
             if check_password(password, user.password):
-                return Response({"message": "Login successfully"})
+                refresh = RefreshToken.for_user(user)
+                token = {'refresh': str(refresh),'access': str(refresh.access_token),}
+                return Response(token)
             else:
                 return Response({"message": "Incorrect password"})
         except User.DoesNotExist:

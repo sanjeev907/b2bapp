@@ -10,7 +10,7 @@ def gen_otp():
 
 
 account_sid = 'AC61b7224f42a7acd7b97e5b7000df43dd'
-auth_token = 'ba7a27caa74099886c848a2552db5b95'
+auth_token = 'eba1bf0a4e93fdb23d57dd6cbf6e7f4d'
 client = Client(account_sid, auth_token)
 
 def send_sms(phone_number, OTP):
