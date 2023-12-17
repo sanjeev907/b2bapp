@@ -1,36 +1,18 @@
 from rest_framework import serializers
 from accounts.models.profile import *
 
-class HobbySerializer(serializers.ModelSerializer):
-    class Meta:
-        model= Hobby
-        fields = '__all__'
-
-class HobbyViewSerializer(serializers.Serializer):
+class HobbySerializer(serializers.Serializer):
     name = serializers.CharField(required=True, error_messages = {'name': 'name is required'})
 
-class InterestSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Interest
-        fields = '__all__'
 
-class InterestViewSerializer(serializers.Serializer):
+class InterestSerializer(serializers.Serializer):
     name = serializers.CharField(required=True, error_messages = {'name': 'name is required'})
 
-class UserTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserType
-        fields = '__all__'
-
-class UserTypeViewSerializer(serializers.Serializer):
+class UserTypeSerializer(serializers.Serializer):
     name = serializers.CharField(required=True, error_messages = {'name': 'name is required'})
 
-class UserProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserProfile
-        fields = '__all__'
 
-class UserProfileViewSerializer(serializers.Serializer):
+class UserProfileSerializer(serializers.Serializer):
     dealer_code = serializers.CharField(required=True, error_messages = {'dealer_code': 'dealer_code is required'})
     name = serializers.CharField(required=True, error_messages = {'name': 'name is required'})
     dob = serializers.DateField(required=True, error_messages = {'dob': 'dob is required'})
@@ -42,14 +24,9 @@ class UserProfileViewSerializer(serializers.Serializer):
     no_of_kids = serializers.BooleanField(required=False)
 
 
-class CompanySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Company
-        fields = '__all__'
-
-class CompanyViewSerializer(serializers.Serializer):
+class CompanySerializer(serializers.Serializer):
     name = serializers.CharField(required=True, error_messages = {'dealer_code': 'dealer_code is required'})
-    comapny_type = serializers.CharField(required=True, error_messages = {'dealer_code': 'dealer_code is required'})
+    company_type = serializers.CharField(required=True, error_messages = {'dealer_code': 'dealer_code is required'})
     firm_image= serializers.ImageField(required=False)
     pan_number = serializers.CharField(required=False) 
     gst_in = serializers.CharField(required=False) 

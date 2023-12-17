@@ -65,7 +65,7 @@ gst_number_validator = RegexValidator(
 
 class  Company(BaseModel):
     name = models.CharField(max_length=255)
-    comapny_type = models.CharField(max_length=255, choices= COMPANY_TYPE)
+    company_type = models.CharField(max_length=255, choices= COMPANY_TYPE)
     firm_image= models.ImageField(upload_to = 'firm_images/')
     pan_number = models.CharField(max_length= 10, validators=[pan_number_validator]) 
     gst_in = models.CharField(max_length=15, validators=[gst_number_validator]) 

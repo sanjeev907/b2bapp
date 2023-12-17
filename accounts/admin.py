@@ -23,7 +23,7 @@ class UserprofileAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display =['user',] 
 
 class CompanyAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ['name', 'comapny_type', 'firm_image', 'pan_number', 'gst_in', 'gst_image', 'user', 'is_active']
+    list_display = ['name', 'company_type', 'firm_image', 'pan_number', 'gst_in', 'gst_image', 'user', 'is_active']
 
 class SpouseAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ['name',]
