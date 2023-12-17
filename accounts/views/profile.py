@@ -65,19 +65,19 @@ class UpdateUserProfileAPIView(CreateAPIView):
         name = request.data.get('name')
         dob = request.data.get('dob')
         try:
-            if dealer_code and name and dob:
-                user = request.user
-                profile = UserProfile.objects.get(id = id, user = user)
-                
-                dealer_code=dealer_code,
-                name=name,
-                dob=dob
-                profile.save()
-
-                instance = UserProfileSerializer(profile)
-                return Response(instance.data)
-            else:
-                return Response({'message':'Invalid User Profile details'})
+                if dealer_code and name and dob:
+                    user = request.user
+                    profile = UserProfile.objects.get(id=id, user=user)
+                    
+                    profile.dealer_code = dealer_code
+                    profile.name = name
+                    profile.dob = dob
+                    profile.save()
+                    
+                    instance = UserProfileSerializer(profile)
+                    return Response(instance.data)
+                else:
+                    return Response({'message':'Invalid User Profile details'})
         except UserProfile.DoesNotExist:
             return Response({'message':'Enter the valid user profile id'})
 
