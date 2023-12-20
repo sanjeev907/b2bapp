@@ -4,7 +4,7 @@ from accounts.views.user import *
 from accounts.views.profile import *
 from accounts.views.family import *
 from accounts.views.bankaccount import *
-
+from accounts.views.address import *
 
 urlpatterns = [
     path('get-user',GetUserAPIView.as_view(), name="getallusers"),
@@ -36,4 +36,11 @@ urlpatterns = [
     path('bank-account',GetBankAccountAPIView.as_view(), name="get-bank-account"),
     path('create/bank-account',CreateBankAccountAPIView.as_view(), name="create-bank-account"),
     path('update/bank/account/<int:id>',UpdateBankAccountAPIView.as_view(), name="update-bank-account"),
+    path('zone',GetZoneAPIView.as_view(), name="get-zone"),
+    path('country',GetCountryAPIView.as_view(), name="get-country"),
+    path('state',GetStateAPIView.as_view(), name="get-state"),
+    path('city',GetCityAPIView.as_view(), name="get-city"),
+    path('pincode',GetPincodeAPIView.as_view(), name="get-pincode"),
+    path('address',GetAddressAPIView.as_view(), name="get-address"),
+    path('create/address',CreateAddressAPIView.as_view(), name="create-address"),
 ]
