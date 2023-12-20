@@ -18,7 +18,7 @@ class Ifsc(BaseModel):
 class BankAccount(BaseModel):
     ACCOUNT_TYPE = (('Saving','Saving'),('Current','Current'))
 
-    account_holser_name = models.CharField(max_length=100)
+    account_holder_name = models.CharField(max_length=100)
     account_number = models.CharField(max_length=100)
     confirm_account_number = models.CharField(max_length=100)
     ifsc = models.ForeignKey(Ifsc,on_delete=models.CASCADE)

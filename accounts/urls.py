@@ -3,6 +3,9 @@ from django.urls import path,include
 from accounts.views.user import *
 from accounts.views.profile import *
 from accounts.views.family import *
+from accounts.views.bankaccount import *
+
+
 urlpatterns = [
     path('get-user',GetUserAPIView.as_view(), name="getallusers"),
     path('create-user',CreateUserAPIView.as_view(), name="create-user"),
@@ -28,4 +31,9 @@ urlpatterns = [
     path('parents',GetParentsAPIView.as_view(), name="get-parents"),
     path('create/parent',CreateParentsAPIView.as_view(), name="create-parent"),
     path('update/parent/<int:id>',UpdateParentsAPIView.as_view(), name="update-parent"),
+    path('bank',GetBankAPIView.as_view(), name="get-banks"),
+    path('ifsc',GetIfscAPIView.as_view(), name="get-ifsc"),
+    path('bank-account',GetBankAccountAPIView.as_view(), name="get-bank-account"),
+    path('create/bank-account',CreateBankAccountAPIView.as_view(), name="create-bank-account"),
+    path('update/bank/account/<int:id>',UpdateBankAccountAPIView.as_view(), name="update-bank-account"),
 ]
