@@ -1,11 +1,14 @@
 from accounts.models.users import User
 from rest_framework.response import Response
 from rest_framework import generics
-from rest_framework.generics import ListAPIView,CreateAPIView,RetrieveUpdateAPIView
+from rest_framework.generics import ListAPIView,CreateAPIView
 from accounts.serializers.profile import *
 from accounts.models.profile import *
+from rest_framework.permissions import IsAuthenticated
+
 
 class GetHobbyAPIView(ListAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Hobby.objects.all()
     serializer_class = HobbySerializer
 
@@ -21,6 +24,7 @@ class CreateHobbyAPIView(CreateAPIView):
         
 
 class GetInterestAPIView(ListAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Interest.objects.all()
     serializer_class = InterestSerializer
 
@@ -36,10 +40,12 @@ class CreateInterestAPIView(CreateAPIView):
 
 
 class GetUserTypeAPIView(ListAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = UserType.objects.all()
     serializer_class = UserTypeSerializer
 
 class GetUserProfiledAPIView(ListAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
 
@@ -83,6 +89,7 @@ class UpdateUserProfileAPIView(CreateAPIView):
 
 
 class GetCompanyAPIView(ListAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
 
