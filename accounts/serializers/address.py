@@ -19,7 +19,7 @@ class PincodeSerializer(serializers.Serializer):
     name = serializers.CharField(required=True, error_messages = {'name':'name is required'})
 
 class AddressSerializer(serializers.Serializer):
-    address_tye = serializers.CharField(required=True, error_messages = {'address_tye':'address_tye is required'})
+    address_type = serializers.CharField(required=True, error_messages = {'address_tye':'address_tye is required'})
     street_address = serializers.CharField(required=True, error_messages = {'street_address':'street_address is required'})
     landmark = serializers.CharField(required=True, error_messages = {'landmark':'landmark is required'})
     locality = serializers.CharField(required=True, error_messages = {'locality':'locality is required'})

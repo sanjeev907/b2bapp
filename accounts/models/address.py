@@ -26,7 +26,7 @@ class Pincode(BaseModel):
 class Address(BaseModel):
     ADDRESS_TYPE = (('Business', 'Business'),('Residential','Residential'))
 
-    address_tye = models.CharField(max_length=255, choices=ADDRESS_TYPE, default= 'Business')
+    address_type = models.CharField(max_length=255, choices=ADDRESS_TYPE, default= 'Business')
     street_address = models.CharField(max_length=255)
     landmark = models.CharField(max_length=255,null=True, blank=True)
     locality = models.CharField(max_length=255,null=True, blank=True)
