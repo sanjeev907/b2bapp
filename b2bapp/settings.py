@@ -28,11 +28,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+PUBLIC_SCHEMA_NAME = 'public'
+
 AUTH_USER_MODEL = 'accounts.user'
+TENANT_MODEL = "tenant.Client"
 
 # Application definition
 
 INSTALLED_APPS = [
+    'tenant_schemas',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework_simplejwt',
+    'tenant',
+    'django.contrib.sites',
     'accounts',
     'utils',
     'import_export',
@@ -48,7 +54,29 @@ INSTALLED_APPS = [
     
 ]
 
+SHARED_APPS = (
+    'tenant_schemas',  # mandatory, should always be before any django app
+    'tenant', # you must list the app where your tenant model resides in
+
+    'django.contrib.contenttypes',
+
+    # everything below here is optional
+    'django.contrib.auth',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.admin',
+)
+
+TENANT_APPS = (
+    'django.contrib.contenttypes',
+
+    # your tenant-specific apps
+    'accounts',
+)
+
 MIDDLEWARE = [
+    'tenant_schemas.middleware.TenantMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -84,7 +112,7 @@ WSGI_APPLICATION = 'b2bapp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'tenant_schemas.postgresql_backend',
         'NAME': 'new_b2b', 
         'USER': 'postgres',
         'PASSWORD': 'sanjeev123@A',
@@ -93,6 +121,9 @@ DATABASES = {
     }
 }
 
+DATABASE_ROUTERS = (
+    'tenant_schemas.routers.TenantSyncRouter',
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -187,3 +218,5 @@ MEDIA_URL ='/media/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DEFAULT_FILE_STORAGE = 'tenant_schemas.storage.TenantFileSystemStorage'
