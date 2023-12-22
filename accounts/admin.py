@@ -40,6 +40,9 @@ class BankAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 class IfscAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ['name',]
 
+class BankAccountAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    list_display = ['account_holder_name','account_number','confirm_account_number','ifsc','account_type']
+
 class ZoneAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ['name',] 
 
@@ -73,3 +76,4 @@ admin.site.register(Parents,ParentsAdmin)
 admin.site.register(Kids,KidsAdmin)
 admin.site.register(Bank,BankAdmin)
 admin.site.register(Ifsc,IfscAdmin)
+admin.site.register(BankAccount,BankAccountAdmin)

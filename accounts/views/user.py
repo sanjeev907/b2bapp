@@ -11,6 +11,7 @@ from rest_framework_simplejwt.views import TokenRefreshView
 
 
 class GetUserAPIView(ListAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
