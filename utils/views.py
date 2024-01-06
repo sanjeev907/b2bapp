@@ -2,6 +2,7 @@ import twilio
 from twilio.rest import Client
 import random
 from django.views import View  
+from rest_framework.pagination import PageNumberPagination
 
 #Functions here of SMS 
 def gen_otp():
@@ -21,3 +22,11 @@ def send_sms(phone_number, OTP):
                      to= phone_number
                  )
     return message.sid
+
+
+# Custom Paginations Starts From Here
+
+class CustomPageNumberPagination(PageNumberPagination):
+    page_size = 10  # Adjust the page size as needed
+    page_size_query_param = 'page_size'
+    max_page_size = 100

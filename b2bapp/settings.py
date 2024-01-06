@@ -37,6 +37,8 @@ TENANT_MODEL = "tenant.Client"
 
 INSTALLED_APPS = [
     'tenant_schemas',
+    'accounts',
+    'tenant',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,35 +46,45 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework_simplejwt',
-    'tenant',
     'django.contrib.sites',
-    'accounts',
     'utils',
     'import_export',
     'rest_framework',
     'twilio',
+    'coupon',
+    'product',
+    'wallet',
+    'tinymce',
     
 ]
 
 SHARED_APPS = (
     'tenant_schemas',  # mandatory, should always be before any django app
+    'accounts',
     'tenant', # you must list the app where your tenant model resides in
-
-    'django.contrib.contenttypes',
-
-    # everything below here is optional
-    'django.contrib.auth',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
     'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'wallet',
+    'product',
 )
 
 TENANT_APPS = (
-    'django.contrib.contenttypes',
-
-    # your tenant-specific apps
     'accounts',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'utils',
+    'coupon',
+    'product',
+    'wallet',
 )
 
 MIDDLEWARE = [
@@ -113,7 +125,7 @@ WSGI_APPLICATION = 'b2bapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'tenant_schemas.postgresql_backend',
-        'NAME': 'new_b2b', 
+        'NAME': 'b2b_app', 
         'USER': 'postgres',
         'PASSWORD': 'sanjeev123@A',
         'HOST': '127.0.0.1', 
